@@ -1,0 +1,204 @@
+
+/* c means color, while d means dimen */
+@c-white: #FEFEFE;
+@c-panels-bg: #EDEDED;
+@c-panel-bg: #333;
+@c-body-bg: #EDEDED;
+
+@d-panel-nav-width: 35%;
+@d-panel-chat-width: 60%;
+@d-panel-width: 60%;
+@d-panel-height: 70%;
+@d-100p: 100%;
+
+@d-nav-head-height: 10%;
+@d-nav-tail-height: 15%;
+
+@d-chat-head-height: 10%;
+@d-chat-tail-height: 20%;
+
+
+@d-chat-board-emoji: 10%;
+@d-chat-board-send: 10%;
+
+
+html, body{
+    width: @d-100p;
+    height: @d-100p;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+body{
+    background: @c-body-bg;
+}
+
+/* The main Layout */
+#iPanels{
+    margin: 0 auto;
+    width: @d-panel-width;
+    height: @d-panel-height;
+    top: (@d-100p - @d-panel-height)/3;
+    position: relative;
+    background: @c-panels-bg;
+}
+#iPanels > div{
+    float: left;
+    height: @d-100p;
+    border-radius: 8px;
+}
+
+
+#iPanel-nav > div, #iPanel-chat > div{
+    width: @d-100p;
+}
+
+#iPanel-nav .cHead, #iPanel-chat .cHead{
+    font-size: x-large;
+    color: @c-white;
+}
+
+#iPanel-nav{
+    width: @d-panel-nav-width;
+    .cHead{
+        text-align: center;
+        height: @d-nav-head-height;
+        background: @c-panel-bg;
+    }
+    .cBody{
+        background: @c-white;
+        height: @d-100p - @d-nav-head-height - @d-nav-tail-height;
+        
+    }
+    .cTail{
+        position: relative;
+        bottom: 0;
+        height: @d-nav-tail-height;
+        background: @c-panel-bg;
+    }
+
+}
+#iPanel-chat{
+    width: @d-panel-chat-width;
+    margin-left: @d-100p - @d-panel-nav-width - @d-panel-chat-width;
+
+    .cHead{
+        text-align: center;
+        height: @d-chat-head-height;
+        background: @c-panel-bg;
+    }
+    .cBody{
+        background: @c-white;
+        height: @d-100p - @d-chat-head-height - @d-chat-tail-height;
+        background: rgba(0, 0, 0, 0.5);
+        overflow: scroll;
+        overflow-x: hidden;
+    }
+    .cTail{
+        position: relative;
+        bottom: 0;
+        height: @d-chat-tail-height;
+        background: @c-panel-bg;
+    }
+
+}
+
+
+
+
+
+
+/* If an element has a class 'cText-middle'
+ * texts of the table that inside it will be fixed to vertical middle 
+ * */
+.cText-middle table, .cText-middle tbody, .cText-middle tr, .cText-middle td {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+
+/* The is the chat function board style */
+#iPanel-chat .cTail{
+    table{
+        width: 100%;
+        height: 100%;
+    }
+    .cEmoji{
+        width: @d-chat-board-emoji;
+        img{
+            width: 25px;
+            height: 25px;
+        }
+    }
+    .cEdit{
+        width: @d-100p - @d-chat-board-emoji - @d-chat-board-send;
+        textarea{
+            width: @d-100p - 8%;
+            height: @d-100p - 8%;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 5px;
+        }
+    }
+    .cSend{
+        width: @d-chat-board-send;
+    }
+    
+}
+
+
+
+
+/* The following is the default message style */
+#iPanel-chat .cBody .cTime{
+    text-align: center;
+    
+    span{
+        color: rgba(255, 255, 255, 0.8);
+        background: rgba(0, 0, 0, 0.3) none repeat scroll 0% 0%;
+        padding: 2px 8px;
+        display: inline-block;
+        margin: 10px;
+        font-size: 13px;
+        border-radius: 8px;
+    }
+}
+.cChat-message{
+    width: 100%;
+
+    .cImg{
+        float: left;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+    .cAlias{
+        font-size: 14px;
+        margin: 0px 0px 10px;
+        text-shadow: 1px 1px 1px #FFF;
+    }
+    .cContent{
+        background: transparent linear-gradient(#CF9, #9C3) repeat scroll 0% 0%;
+        padding: 10px 15px;
+        word-break: break-all;
+        box-shadow: 1px 1px 5px #000;
+        line-height: 1.4;
+        border-radius: 5px;
+        max-width: 50%;
+        min-height: 16px;
+        display: inline-block;
+        margin: -5px;
+    }
+}
+.cChat-message:last-child{
+    margin-bottom: 24px;
+}
+
+
+
+
+
+
