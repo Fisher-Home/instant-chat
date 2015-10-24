@@ -38,7 +38,7 @@
 						<span>19:21pm</span>
 					</div>
 					<div class="cChat-message">
-						<img class="cImg" src="" align="Headphoto" />
+						<img class="cImg" src="module/pic/default.png" align="Headphoto" />
 						<p class="cAlias">Fisher</p>
 						<p class="cContent">Hello, Nice to meet you</p>
 					</div>
