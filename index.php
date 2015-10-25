@@ -1,5 +1,4 @@
 <?php
-include("post.php");
 session_start();
 
 if(isset($_GET['logout'])){	
@@ -17,7 +16,7 @@ function loginForm(){
 	echo'
 	<h1 align="center">Smart Chat</h1>
 	<div id="loginform">
-	<form action="index.php" method="post">
+	<form action="index.php" method="POST">
 		<p>Please enter your name to continue:</p>
 		<label for="name">Name:</label>
 		<input type="text" name="name" id="name" />
@@ -26,7 +25,6 @@ function loginForm(){
 	</div>
 	';
 }
-
 if(isset($_POST['enter'])){
 	if($_POST['name'] != ""){
 		$_SESSION['name'] = stripslashes(htmlspecialchars($_POST['name']));
@@ -51,7 +49,7 @@ else{
 ?>
 <div id="wrapper">
 	<div id="menu">
-		<p class="welcome">Welcome, <?php $_POST['name']?><b>
+		<p class="welcome">Welcome, <?php $u = $_POST['name'] ;?><b>
 		
 		<?php echo $_SESSION['name']; ?></b></p>
 		<p class="logout"><form method="GET" action=""><input name="logout" type="submit"  id="logout" value="Exit" /></form></p>
@@ -60,28 +58,41 @@ else{
 	<div id="chatbox">
 
 	<?php
-	if(file_exists("log.html") && filesize("log.html") > 0){
+	/*Read the message from the database*/
+function read_msg(){		
+		$sql = "SELECT * FROM message";
+		$result = mysql_query($sql);
+		
+			while($sql_field=mysql_fetch_assoc($result)) {
+				print "<p> ".date('h:s')." ".$sql_field['user'].":";
+				print $sql_field['message']."</p>";
+				//print "done";
+			}
+		}
+read_msg();
+		/*if(file_exists("log.html") && filesize("log.html") > 0){
 		$handle = fopen("log.html", "r");
 		$contents = fread($handle, filesize("log.html"));
 		fclose($handle);
 		
 		echo $contents;
-	}
+	}*/
 	?></div>
 	
-	<form name="message" action="" method="POST">
+	<form name="message" action="post.php" method="POST">
+		<?php $u = $_SESSION['name'] ;?>
 		<input name="usermsg" type="text" id="usermsg" size="63" />
 		<input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
 	</form>
 </div>
-<script type="text/javascript" src="code.jquery.com/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
-// jQuery Document
+/* jQuery Document
 $(document).ready(function(){
 	//If user submits the form
 	$("#submitmsg").click(function(){	
 		var clientmsg = $("#usermsg").val();
-		$.post("post.php", {text: clientmsg});				
+		$.post("#", {text: clientmsg});				
 		$("#usermsg").attr("value", "");
 		return false;
 	});
@@ -90,7 +101,7 @@ $(document).ready(function(){
 	function loadLog(){		
 		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20;
 		$.ajax({
-			url: "log.html",
+			url: "post.php",
 			cache: false,
 			success: function(html){		
 				$("#chatbox").html(html); //Insert chat log into the #chatbox div				
@@ -111,6 +122,8 @@ $(document).ready(function(){
 });
 </script>
 <?php
+
+$b = $_POST['usermsg'];
 }
 ?>
 </body>
