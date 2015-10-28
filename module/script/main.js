@@ -151,22 +151,25 @@ function init() {
 	}
 		// Request the server for history message;
 	Obj.fnGetHistory = function(id) {
-		$.post("api/", {
+		$.post("api.php", {
 				from: "",
 				id: this.curChatID
 			}, function(data, code) {
-				info(data);
-
-				Obj.msgs[id] = data;
-				Obj.fnShowMessages();
+				Obj.msgs[id]=[];
+//				info(data);
+//
+//				Obj.msgs[id] = data;
+//				Obj.fnShowMessages();
 			},
 			"json");
 	}
 	Obj.fnCheckNewMessages=function(){
-		$.post("api/", {
-				from: ""
+		$.post("api.php", {
+				target: "check"
+				, from: "pluto"
 			}, function(data, code) {
-
+				info(data.errcode+"  --  "+data.msg);
+				info(data.data);
 			},
 			"json");
 	}
