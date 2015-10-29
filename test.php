@@ -1,33 +1,30 @@
 <?php
+// Disable the 'deprecated' warning
 error_reporting(E_ALL ^ E_DEPRECATED);
-/* This is the test file; do any test here */
-$curTime = time() . substr(microtime(), 2, 3) + 0;
+/* Do some test, and all code is temporary here */
 
-require ('module/model/Mysql.class.php');
-require ('api/Chat.class.php');
+require('module/model/MysqlHelper.class.php');
+require('module/model/Application.class.php');
 
+$mysql=new MysqlHelper();
 $config = array('db_host' => 'localhost', 'db_user' => 'root', 'db_psw' => '', 'db_name' => 'smart_chat_v1', 'db_charset' => 'utf8');
+$mysql -> connect($config);
+$app=new Application($mysql);
 
-$mysql = new Mysql();
-$mysql->connect($config);
+//$app->fnCreateUserTable();
+//$app->fnCreateUserInfoTable();
 
-$chat = new Chat($mysql);
+//$app->fnCreateUser('Fisher', 'free');
+//$app->fnCreateUser('Pluto', 'free');
 
-//function check($key) {
-//	if (isset($_POST[$key])) {
-//		return $_POST[$key];
-//	}
-//	return '';
-//}
+//$info=$app->fnGetUserInfo('Pluto');
+//var_dump($info);
+//$info->mGender='Boy';
+//$info->mAlias='Pluto';
+//$app->fnSetUserInfo('Pluto', $info);
 
-//echo gettype($curTime);
-//$data = array('mFrom' => check('from'), 'mContent' => check('content'), 'mTime' => $curTime, 'mIsRead'=>0);
+//echo $app->fnIsUserExsits('Pluto');
 
-//$mysql->insert('Table_v1', $data);
-
-//echo $chat -> fnCreateUserMsg('pluto');
-$chat -> fnSendMessage('pluto', 'fisher', 'Hello pluto, i am fisher');
-echo json_encode($chat -> fnCheckMessage('pluto'));
 
 $mysql->close();
 ?>

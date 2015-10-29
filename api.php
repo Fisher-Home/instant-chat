@@ -1,15 +1,16 @@
 <?php
+// Disable the 'deprecated' warning
 error_reporting(E_ALL ^ E_DEPRECATED);
 //header("Content-Type:text/json");
 $curTime = time() . substr(microtime(), 2, 3) + 0;
 
-require ('module/model/Mysql.class.php');
+require ('module/model/MysqlHelper.class.php');
 require ('api/Chat.class.php');
 
 //$config = array('db_host' => 'localhost', 'db_user' => 'root', 'db_psw' => '', 'db_name' => 'smart_chat_v1', 'db_charset' => 'utf8');
 $config = array('db_host' => 'localhost', 'db_user' => 'root', 'db_psw' => '', 'db_name' => 'smart_chat_v1', 'db_charset' => 'utf8');
 
-$mysql = new Mysql();
+$mysql = new MysqlHelper();
 $mysql -> connect($config);
 
 $chat = new Chat($mysql);

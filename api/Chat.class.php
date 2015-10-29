@@ -1,6 +1,9 @@
 <?php
 
 class Chat {
+	/*
+	 * This is the class to help process logical task for every user
+	 * */
 	private $curTime;
 	private $mysql;
 
@@ -16,22 +19,9 @@ class Chat {
 		return $this -> mysql -> insert('msg_' . $to, $data);
 	}
 
-	public function fnCreateUserMsg($id) {
-		// Create the user-messages table
-		$sql = "CREATE TABLE msg_{$id}(
-			mID int NOT NULL AUTO_INCREMENT
-			, PRIMARY KEY( mID )
-			, mFrom varchar(35) Not NULL DEFAULT ''
-			, mTime bigint Not NULL DEFAULT 0
-			, mRead tinyint(1) Not NULL DEFAULT 1
-			, mContent text Not NULL DEFAULT ''
-		)";
-		return $this -> mysql -> query($sql);
-	}
-
 	public function fnCheckMessage($id) {
 		// Check new messages
-		$sql = "SELECT * FROM msg_{$id} WHERE mRead=1";
+		$sql = "SELECT `mFrom`, `mContent`, `mTime` FROM msg_{$id} WHERE mRead=1";
 		$query = $this -> mysql -> query($sql);
 		$result = $this -> mysql -> fetchQuery($query);
 		return $result;
@@ -40,8 +30,8 @@ class Chat {
 
 	public function fnCheckHistory($id, $who) {
 		// Check history messages
-//		$sql = "SELECT * FROM msg_{$id} WHERE mRead=0 AND mFrom={$who}";
-		$sql = "SELECT * FROM msg_{$id} WHERE mFrom={$who}";
+//		$sql = "SELECT `mFrom`, `mContent`, `mTime` FROM msg_{$id} WHERE mRead=0 AND mFrom={$who}";
+		$sql = "SELECT `mFrom`, `mContent`, `mTime` FROM msg_{$id} WHERE mFrom={$who}";
 		$query = $this -> mysql -> query($sql);
 		$result = $this -> mysql -> fetchQuery($query);
 		return $result;
